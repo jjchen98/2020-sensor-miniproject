@@ -37,6 +37,7 @@ async def main(port: int, addr: str, max_packets: int, log_file: Path = None):
 
     if log_file:
         log_file = Path(log_file).expanduser()
+        
 
     uri = f"ws://{addr}:{port}"
 
@@ -76,3 +77,10 @@ def cli():
 
 if __name__ == "__main__":
     cli()
+
+data = Path(log_file).expanduser()
+for line in open(data,"w"):
+    print(line);
+    
+    
+    
