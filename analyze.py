@@ -17,14 +17,14 @@ import typing as T
 import matplotlib.pyplot as plt
 import numpy as np
 
-
+filer = open('dataset.txt')
 def load_data(file: Path) -> T.Dict[str, pandas.DataFrame]:
 
     temperature = {}
     occupancy = {}
     co2 = {}
 
-    with open(file, "r") as f:
+    with open('dataset.txt', "r") as f:
         for line in f:
             r = json.loads(line)
             room = list(r.keys())[0]
@@ -34,6 +34,12 @@ def load_data(file: Path) -> T.Dict[str, pandas.DataFrame]:
             occupancy[time] = {room: r[room]["occupancy"][0]}
             co2[time] = {room: r[room]["co2"][0]}
 
+            temp = []
+        #temp.append(list(v.values())[0])
+        #DFtemp = pandas.DataFrame(temp)
+        #print("Temp Median:", Median[0])
+        #print("Temp Variance:", Var[0])
+        occu = []
     data = {
         "temperature": pandas.DataFrame.from_dict(temperature, "index").sort_index(),
         "occupancy": pandas.DataFrame.from_dict(occupancy, "index").sort_index(),
@@ -44,20 +50,83 @@ def load_data(file: Path) -> T.Dict[str, pandas.DataFrame]:
 
 
 if __name__ == "__main__":
-    p = argparse.ArgumentParser(description="load and analyse IoT JSON data")
-    p.add_argument("file", help="path to JSON data file")
-    P = p.parse_args()
+    data = load_data('dataset.txt')
+###
+    for k in data:
+        if k == 'temperature':
+            print('')
+            print('For office:')
+            print('')
+            print('Temperature Median: ' + str(data[k]['office'].median()))
+            print('Temperature Variance: ' + str(data[k]['office'].var()))
+            print('')
 
-    file = Path(P.file).expanduser()
 
-    data = load_data(file)
+        if k == 'occupancy':
+            print('Occupancy Median: ' + str(data[k]['office'].median()))
+            print('Occupancy Variance: ' + str(data[k]['office'].var()))
+            print('')
 
     for k in data:
-        # data[k].plot()
+        if k == 'temperature':
+            print('')
+            print('For class1:')
+            print('')
+            print('Temperature Median: ' + str(data[k]['class1'].median()))
+            print('Temperature Variance: ' + str(data[k]['class1'].var()))
+            print('')
+        
+
+        if k == 'occupancy':
+            print('Occupancy Median: ' + str(data[k]['class1'].median()))
+            print('Occupancy Variance: ' + str(data[k]['class1'].var()))
+            print('')
+    for k in data:
+        if k == 'temperature':
+            print('')
+            print('For lab1:')
+            print('')
+            print('Temperature Median: ' + str(data[k]['lab1'].median()))
+            print('Temperature Variance: ' + str(data[k]['lab1'].var()))
+            print('')
+        
+
+        if k == 'occupancy':
+            print('Occupancy Median: ' + str(data[k]['lab1'].median()))
+            print('Occupancy Variance: ' + str(data[k]['lab1'].var()))
+            print('')
+###
+            """
+              # data[k].plot()
         time = data[k].index
         data[k].hist()
         plt.figure()
         plt.hist(np.diff(time.values).astype(np.int64) // 1000000000)
         plt.xlabel("Time (seconds)")
+            """
+###
+        plt.figure()
+        data[k]['office'].plot.density()
+        plt.title('Probability Density Functions for ' + k)
+        if k == 'temperature':
+            plt.xlabel('Temperature/°C')
+        elif k == 'occupancy':
+            plt.xlabel('No. of People')
+        elif k == 'co2':
+            plt.xlabel('co2 level')
+###
+    time = data['temperature'].index
+    time_series = pandas.Series([t.total_seconds() for t in (time[1:] - time[:-1])])
+    print('')
+    print('Time Interval across all Rooms:')
+    print('')
+    print('Time Interval Mean: ' + str(time_series.mean()))
+    print('Time Interval Variance: ' + str(time_series.var()))
+    print('')
+    plt.figure()
+    time_series.plot.density()
+    plt.title('Probability Density Function For Time Interval')
+    plt.xlabel('Time (seconds)')
+###
 
     plt.show()
