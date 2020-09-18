@@ -14,7 +14,7 @@ PURPOSE
 SUMMARY 
 	Task 0: The greeting string issued by the server to the client is: ECE Senior Capstone IoT simulator
 	Task 2:
-<img src=“https://github.com/jjchen98/2020-sensor-miniproject/blob/main/Screen%20Shot%202020-09-17%20at%2010.06.04%20PM.png”>
+<img src="Screen Shot 2020-09-17 at 10.06.04 PM.png">
 
 
 
