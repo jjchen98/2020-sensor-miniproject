@@ -14,8 +14,11 @@ PURPOSE
 SUMMARY 
 	Task 0: The greeting string issued by the server to the client is: ECE Senior Capstone IoT simulator
 	Task 2:
+<img src="median.png">
 <img src="Screen Shot 2020-09-17 at 10.06.04 PM.png">
-
+<img src="Screen Shot 2020-09-17 at 10.06.14 PM.png">
+<img src="Screen Shot 2020-09-17 at 10.06.19 PM.png">
+<img src="Screen Shot 2020-09-17 at 10.06.24 PM.png">
 
 
 	Task 2: The time interval distribution mimics a binomial curve。 
